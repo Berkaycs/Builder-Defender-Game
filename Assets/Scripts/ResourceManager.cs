@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,8 @@ public class ResourceManager : MonoBehaviour
 
     private const string RESOURCE_TYPE_LIST_SO = "ResourceTypeList";
     private Dictionary<ResourceTypeSO, int> _resourceAmountDictionary;
+
+    public event EventHandler OnResourceAmountChanged;
 
     // initialization should be in awake method
     private void Awake()
@@ -28,7 +31,7 @@ public class ResourceManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.T))
+        if (Input.GetKeyDown(KeyCode.I))
         {
             ResourceTypeListSO resourceTypeList = Resources.Load<ResourceTypeListSO>(RESOURCE_TYPE_LIST_SO);
             AddResource(resourceTypeList.List[0], 2);
@@ -47,6 +50,14 @@ public class ResourceManager : MonoBehaviour
     public void AddResource(ResourceTypeSO resourceType, int amount)
     {
         _resourceAmountDictionary[resourceType] += amount;
+
+        OnResourceAmountChanged?.Invoke(this, EventArgs.Empty);
+
         TestLogResourceAmontDictionary();
+    }
+
+    public int GetResourceAmount(ResourceTypeSO resourceType)
+    {
+        return _resourceAmountDictionary[resourceType];
     }
 }
