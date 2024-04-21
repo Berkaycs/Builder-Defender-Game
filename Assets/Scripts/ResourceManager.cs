@@ -25,8 +25,6 @@ public class ResourceManager : MonoBehaviour
         {
             _resourceAmountDictionary[resourceType] = 0;
         }
-
-        TestLogResourceAmontDictionary();
     }
 
     private void Update()
@@ -35,7 +33,6 @@ public class ResourceManager : MonoBehaviour
         {
             ResourceTypeListSO resourceTypeList = Resources.Load<ResourceTypeListSO>(RESOURCE_TYPE_LIST_SO);
             AddResource(resourceTypeList.List[0], 2);
-            TestLogResourceAmontDictionary();
         }
     }
 
@@ -52,8 +49,6 @@ public class ResourceManager : MonoBehaviour
         _resourceAmountDictionary[resourceType] += amount;
 
         OnResourceAmountChanged?.Invoke(this, EventArgs.Empty);
-
-        TestLogResourceAmontDictionary();
     }
 
     public int GetResourceAmount(ResourceTypeSO resourceType)
