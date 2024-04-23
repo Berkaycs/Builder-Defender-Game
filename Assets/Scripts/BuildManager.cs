@@ -39,10 +39,26 @@ public class BuildManager : MonoBehaviour
         // if there is an UI in the screen where you click, it does not instantiate the buildings 
         if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
         {
-            if (_activeBuildingType != null && CanSpawnBuilding(_activeBuildingType, UtilitiesClass.GetMouseWorldPosition()))
+            if (_activeBuildingType != null)
             {
-                Instantiate(_activeBuildingType.Prefab, UtilitiesClass.GetMouseWorldPosition(), Quaternion.identity);
-            }
+                if (CanSpawnBuilding(_activeBuildingType, UtilitiesClass.GetMouseWorldPosition(), out string errorMessage))
+                {
+                    if (ResourceManager.Instance.CanAfford(_activeBuildingType.ConstructionResourceCostArray))
+                    {
+                        ResourceManager.Instance.SpendResources(_activeBuildingType.ConstructionResourceCostArray);
+                        Instantiate(_activeBuildingType.Prefab, UtilitiesClass.GetMouseWorldPosition(), Quaternion.identity);
+                    }
+                    else
+                    {
+                        TooltipUI.Instance.Show("Cannot afford " + _activeBuildingType.GetConstructionResourceCostString(),
+                            new TooltipUI.TooltipTimer { Timer = 2f });
+                    }
+                }
+                else
+                {
+                    TooltipUI.Instance.Show(errorMessage, new TooltipUI.TooltipTimer { Timer = 2f });
+                }
+            }         
         }
     }
 
@@ -58,7 +74,7 @@ public class BuildManager : MonoBehaviour
         return _activeBuildingType;
     }
 
-    private bool CanSpawnBuilding(BuildingTypeSO buildingType, Vector3 position)
+    private bool CanSpawnBuilding(BuildingTypeSO buildingType, Vector3 position, out string errorMessage)
     {
         BoxCollider2D boxCollider2D = buildingType.Prefab.GetComponent<BoxCollider2D>();
 
@@ -67,6 +83,7 @@ public class BuildManager : MonoBehaviour
         bool isAreaClear = collider2DArray.Length == 0;
         if (!isAreaClear)
         {
+            errorMessage = "Area is not clear!";
             return false;
         }
 
@@ -83,6 +100,7 @@ public class BuildManager : MonoBehaviour
                 if (buildingTypeHolder.BuildingType == buildingType)
                 {
                     // There's already a building of this type within the construction radius!
+                    errorMessage = "Too close to another building of the same type!";
                     return false;
                 }
             }
@@ -98,10 +116,11 @@ public class BuildManager : MonoBehaviour
             if (buildingTypeHolder != null)
             {
                 // It's a building!
+                errorMessage = "";
                 return true;
             }
         }
-
+        errorMessage = "Too far from any other building!";
         return false;
     }
 }

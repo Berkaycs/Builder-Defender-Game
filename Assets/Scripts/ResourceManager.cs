@@ -36,14 +36,6 @@ public class ResourceManager : MonoBehaviour
         }
     }
 
-    private void TestLogResourceAmontDictionary()
-    {
-        foreach (ResourceTypeSO resourceType in _resourceAmountDictionary.Keys)
-        {
-            Debug.Log(resourceType.Name + ": " + _resourceAmountDictionary[resourceType]);
-        }
-    }
-
     public void AddResource(ResourceTypeSO resourceType, int amount)
     {
         _resourceAmountDictionary[resourceType] += amount;
@@ -54,5 +46,30 @@ public class ResourceManager : MonoBehaviour
     public int GetResourceAmount(ResourceTypeSO resourceType)
     {
         return _resourceAmountDictionary[resourceType];
+    }
+
+    public bool CanAfford(ResourceAmount[] resourceAmountArray)
+    {
+        foreach (ResourceAmount resourceAmount in resourceAmountArray)
+        {
+            if (GetResourceAmount(resourceAmount.ResourceType) >= resourceAmount.Amount)
+            {
+                // can afford
+            }
+            else
+            {
+                // can not afford this!
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public void SpendResources(ResourceAmount[] resourceAmountArray)
+    {
+        foreach (ResourceAmount resourceAmount in resourceAmountArray)
+        {
+            _resourceAmountDictionary[resourceAmount.ResourceType] -= resourceAmount.Amount;
+        }
     }
 }
