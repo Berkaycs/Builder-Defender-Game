@@ -6,6 +6,7 @@ using UnityEngine;
 public class BuildingTypeSO : ScriptableObject
 {
     public string Name;
+    public int HealthAmountMax;
     public Transform Prefab;
     public ResourceGeneratorData ResourceGeneratorData;
     public Sprite Sprite;

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: HQ
   m_EditorClassIdentifier: 
   Name: HQ
+  HealthAmountMax: 150
   Prefab: {fileID: 4437967455882662877, guid: 8f24c9aba3d04564e80e5c5e8a55d19e, type: 3}
   ResourceGeneratorData:
     TimerMax: 1
@@ -21,3 +22,4 @@ MonoBehaviour:
     MaxResourceAmount: 7
   Sprite: {fileID: 21300000, guid: 7030b8e3eb49e8440ae8eb3ec8b45d05, type: 3}
   MinConstructionRadius: 0
+  ConstructionResourceCostArray: []

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: GoldHarvester
   m_EditorClassIdentifier: 
   Name: Gold Harvester
+  HealthAmountMax: 100
   Prefab: {fileID: 4437967455882662877, guid: 3d181f0e006060e4fb34d8af554d4676, type: 3}
   ResourceGeneratorData:
     TimerMax: 2

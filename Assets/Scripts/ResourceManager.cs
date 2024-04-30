@@ -27,15 +27,6 @@ public class ResourceManager : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            ResourceTypeListSO resourceTypeList = Resources.Load<ResourceTypeListSO>(RESOURCE_TYPE_LIST_SO);
-            AddResource(resourceTypeList.List[0], 2);
-        }
-    }
-
     public void AddResource(ResourceTypeSO resourceType, int amount)
     {
         _resourceAmountDictionary[resourceType] += amount;
