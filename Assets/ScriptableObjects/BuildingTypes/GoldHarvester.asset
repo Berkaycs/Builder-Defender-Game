@@ -15,6 +15,7 @@ MonoBehaviour:
   Name: Gold Harvester
   HealthAmountMax: 100
   Prefab: {fileID: 4437967455882662877, guid: 3d181f0e006060e4fb34d8af554d4676, type: 3}
+  HasResourceGeneratorData: 1
   ResourceGeneratorData:
     TimerMax: 2
     ResourceType: {fileID: 11400000, guid: edfcee812a1e73647aba8607de202406, type: 2}
@@ -27,3 +28,4 @@ MonoBehaviour:
     Amount: 50
   - ResourceType: {fileID: 11400000, guid: 66f70e4e89449f7428d8bf8724582295, type: 2}
     Amount: 50
+  ConstructionTimerMax: 5

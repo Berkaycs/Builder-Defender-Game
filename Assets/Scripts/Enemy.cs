@@ -15,6 +15,7 @@ public class Enemy : MonoBehaviour
 
     private Rigidbody2D _rb;
     private Transform _targetTransform;
+    private HealthSystem _healthSystem;
     private float _lookForTargetTimer;
     private float _lookForTargetTimerMax = .2f;
 
@@ -23,9 +24,20 @@ public class Enemy : MonoBehaviour
         _rb = GetComponent<Rigidbody2D>();
 
         // because we can't access the target from projects to serializefield, we get it with script in the scene
-        _targetTransform = BuildManager.Instance.GetHQBuilding().transform;
+        if (BuildManager.Instance.GetHQBuilding() != null )
+        {
+            _targetTransform = BuildManager.Instance.GetHQBuilding().transform;
+        }
+
+        _healthSystem = GetComponent<HealthSystem>();
+        _healthSystem.OnDied += HealthSystem_OnDied;
 
         _lookForTargetTimer = Random.Range(0f, _lookForTargetTimerMax);
+    }
+
+    private void HealthSystem_OnDied(object sender, System.EventArgs e)
+    {
+        Destroy(gameObject);
     }
 
     private void Update()
@@ -102,7 +114,10 @@ public class Enemy : MonoBehaviour
 
         if (_targetTransform == null)
         {
-            _targetTransform = BuildManager.Instance.GetHQBuilding().transform;
+            if (BuildManager.Instance.GetHQBuilding() != null)
+            {
+                _targetTransform = BuildManager.Instance.GetHQBuilding().transform;
+            }           
         }
     }
 }

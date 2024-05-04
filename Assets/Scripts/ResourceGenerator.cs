@@ -56,8 +56,6 @@ public class ResourceGenerator : MonoBehaviour
                 _resourceGeneratorData.TimerMax * 
                 (1 - (float)nearbyResourceAmount / _resourceGeneratorData.MaxResourceAmount);
         }
-
-        Debug.Log("Nearby Resource Amount: " +  nearbyResourceAmount + "Timer Max: " + _timerMax);
     }
 
     private void Update()

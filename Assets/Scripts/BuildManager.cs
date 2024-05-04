@@ -34,6 +34,13 @@ public class BuildManager : MonoBehaviour
     private void Start()
     {
         _mainCamera = Camera.main;
+
+        _hqBuilding.GetComponent<HealthSystem>().OnDied += BuildManager_OnDied;
+    }
+
+    private void BuildManager_OnDied(object sender, EventArgs e)
+    {
+        GameOverUI.Instance.Show();
     }
 
     private void Update()
@@ -48,7 +55,8 @@ public class BuildManager : MonoBehaviour
                     if (ResourceManager.Instance.CanAfford(_activeBuildingType.ConstructionResourceCostArray))
                     {
                         ResourceManager.Instance.SpendResources(_activeBuildingType.ConstructionResourceCostArray);
-                        Instantiate(_activeBuildingType.Prefab, UtilitiesClass.GetMouseWorldPosition(), Quaternion.identity);
+                        //Instantiate(_activeBuildingType.Prefab, UtilitiesClass.GetMouseWorldPosition(), Quaternion.identity);
+                        BuildingConstruction.Create(UtilitiesClass.GetMouseWorldPosition(), _activeBuildingType);
                     }
                     else
                     {
@@ -61,12 +69,6 @@ public class BuildManager : MonoBehaviour
                     TooltipUI.Instance.Show(errorMessage, new TooltipUI.TooltipTimer { Timer = 2f });
                 }
             }         
-        }
-
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            Vector3 enemySpawnPosition = UtilitiesClass.GetMouseWorldPosition() + UtilitiesClass.GetRandomDir() * 5f;
-            Enemy.Create(enemySpawnPosition);
         }
     }
 

@@ -15,6 +15,7 @@ MonoBehaviour:
   Name: Stone Harvester
   HealthAmountMax: 100
   Prefab: {fileID: 4437967455882662877, guid: 44f4c1f4f465b5b4ebec959ee57724f5, type: 3}
+  HasResourceGeneratorData: 1
   ResourceGeneratorData:
     TimerMax: 1
     ResourceType: {fileID: 11400000, guid: 1485411d8b534954eaae957cecdd8f38, type: 2}
@@ -25,3 +26,4 @@ MonoBehaviour:
   ConstructionResourceCostArray:
   - ResourceType: {fileID: 11400000, guid: 66f70e4e89449f7428d8bf8724582295, type: 2}
     Amount: 30
+  ConstructionTimerMax: 5
