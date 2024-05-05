@@ -5,8 +5,10 @@ using UnityEngine;
 
 public class HealthSystem : MonoBehaviour
 {
+    public event EventHandler OnHealthAmountMaxChanged;
     public event EventHandler OnDied;
     public event EventHandler OnDamaged;
+    public event EventHandler OnHealed;
 
     [SerializeField] private int _healthAmountMax;
     private int _healthAmount;
@@ -19,7 +21,7 @@ public class HealthSystem : MonoBehaviour
     public void Damage(int damageAmount)
     {
         _healthAmount -= damageAmount;
-        _healthAmount = Mathf.Clamp(_healthAmount, 0, _healthAmountMax); // match3 skor için uygula
+        _healthAmount = Mathf.Clamp(_healthAmount, 0, _healthAmountMax);
 
         OnDamaged?.Invoke(this, EventArgs.Empty);
 
@@ -27,6 +29,21 @@ public class HealthSystem : MonoBehaviour
         {
             OnDied?.Invoke(this, EventArgs.Empty);
         }
+    }
+
+    public void Heal(int healAmount)
+    {
+        _healthAmount += healAmount;
+        _healthAmount = Mathf.Clamp(_healthAmount, 0, _healthAmountMax);
+
+        OnHealed?.Invoke(this, EventArgs.Empty);
+    }
+
+    public void HealFull()
+    {
+        _healthAmount = _healthAmountMax;
+
+        OnHealed?.Invoke(this, EventArgs.Empty);
     }
 
     public bool IsDead()
@@ -47,11 +64,18 @@ public class HealthSystem : MonoBehaviour
         {
             _healthAmount = healthAmountMax;
         }
+
+        OnHealthAmountMaxChanged?.Invoke(this, EventArgs.Empty);
     }
 
     public int GetHealthAmount()
     {
         return _healthAmount;
+    }
+
+    public int GetHealthAmountMax()
+    {
+        return _healthAmountMax;
     }
 
     public float GetHealthAmountNormalized()

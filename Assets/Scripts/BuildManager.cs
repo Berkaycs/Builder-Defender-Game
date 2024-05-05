@@ -38,11 +38,6 @@ public class BuildManager : MonoBehaviour
         _hqBuilding.GetComponent<HealthSystem>().OnDied += BuildManager_OnDied;
     }
 
-    private void BuildManager_OnDied(object sender, EventArgs e)
-    {
-        GameOverUI.Instance.Show();
-    }
-
     private void Update()
     {
         // if there is an UI in the screen where you click, it does not instantiate the buildings 
@@ -57,6 +52,7 @@ public class BuildManager : MonoBehaviour
                         ResourceManager.Instance.SpendResources(_activeBuildingType.ConstructionResourceCostArray);
                         //Instantiate(_activeBuildingType.Prefab, UtilitiesClass.GetMouseWorldPosition(), Quaternion.identity);
                         BuildingConstruction.Create(UtilitiesClass.GetMouseWorldPosition(), _activeBuildingType);
+                        SoundManager.Instance.PlaySound(SoundManager.Sound.BuildingPlaced);
                     }
                     else
                     {
@@ -70,6 +66,12 @@ public class BuildManager : MonoBehaviour
                 }
             }         
         }
+    }
+
+    private void BuildManager_OnDied(object sender, EventArgs e)
+    {
+        SoundManager.Instance.PlaySound(SoundManager.Sound.GameOver);
+        GameOverUI.Instance.Show();
     }
 
     public void SetActiveBuildingType(BuildingTypeSO buildingType)
