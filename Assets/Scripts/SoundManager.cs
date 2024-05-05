@@ -18,13 +18,15 @@ public class SoundManager : MonoBehaviour
 
     private AudioSource _audioSource;
     private Dictionary<Sound, AudioClip> _soundsDictionary;
-    private float _volume = -5f;
+    private float _volume = .5f;
 
     private void Awake()
     {
         Instance = this;
 
         _audioSource = GetComponent<AudioSource>();
+
+        _volume = PlayerPrefs.GetFloat("soundVolume", .5f);
 
         _soundsDictionary = new Dictionary<Sound, AudioClip>();
 
@@ -43,12 +45,14 @@ public class SoundManager : MonoBehaviour
     {
         _volume += .1f;
         _volume = Mathf.Clamp01(_volume);
+        PlayerPrefs.SetFloat("soundVolume", _volume);
     }
 
     public void DecreaseVolume()
     {
         _volume -= .1f;
         _volume = Mathf.Clamp01(_volume);
+        PlayerPrefs.SetFloat("soundVolume", _volume);
     }
 
     public float GetVolume()

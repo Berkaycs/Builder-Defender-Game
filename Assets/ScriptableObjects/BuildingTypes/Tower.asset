@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Tower
   m_EditorClassIdentifier: 
   Name: Tower
-  HealthAmountMax: 70
+  HealthAmountMax: 100
   Prefab: {fileID: 4437967455882662877, guid: 84238d3cb9da5af45bcf700f067312ff, type: 3}
   HasResourceGeneratorData: 0
   ResourceGeneratorData:
@@ -28,4 +28,4 @@ MonoBehaviour:
     Amount: 30
   - ResourceType: {fileID: 11400000, guid: 66f70e4e89449f7428d8bf8724582295, type: 2}
     Amount: 40
-  ConstructionTimerMax: 5
+  ConstructionTimerMax: 15

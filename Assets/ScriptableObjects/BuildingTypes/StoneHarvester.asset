@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: StoneHarvester
   m_EditorClassIdentifier: 
   Name: Stone Harvester
-  HealthAmountMax: 100
+  HealthAmountMax: 70
   Prefab: {fileID: 4437967455882662877, guid: 44f4c1f4f465b5b4ebec959ee57724f5, type: 3}
   HasResourceGeneratorData: 1
   ResourceGeneratorData:
@@ -26,4 +26,4 @@ MonoBehaviour:
   ConstructionResourceCostArray:
   - ResourceType: {fileID: 11400000, guid: 66f70e4e89449f7428d8bf8724582295, type: 2}
     Amount: 30
-  ConstructionTimerMax: 5
+  ConstructionTimerMax: 10

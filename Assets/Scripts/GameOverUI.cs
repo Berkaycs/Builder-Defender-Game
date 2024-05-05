@@ -27,7 +27,7 @@ public class GameOverUI : MonoBehaviour
     {
         gameObject.SetActive(true);
 
-        transform.Find("TxtWave").GetComponent<TextMeshProUGUI>().SetText("You Survived " + EnemyWaveManager.Instance.GetWaveNumber() + "Waves!");
+        transform.Find("TxtWave").GetComponent<TextMeshProUGUI>().SetText("You Survived " + EnemyWaveManager.Instance.GetWaveNumber() + " Waves!");
     }
 
     private void Hide()

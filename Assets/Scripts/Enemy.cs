@@ -37,21 +37,24 @@ public class Enemy : MonoBehaviour
         _lookForTargetTimer = Random.Range(0f, _lookForTargetTimerMax);
     }
 
-    private void HealthSystem_OnDamaged(object sender, System.EventArgs e)
-    {
-        SoundManager.Instance.PlaySound(SoundManager.Sound.EnemyHit);
-    }
-
-    private void HealthSystem_OnDied(object sender, System.EventArgs e)
-    {
-        Destroy(gameObject);
-        SoundManager.Instance.PlaySound(SoundManager.Sound.EnemyDie);
-    }
-
     private void Update()
     {
         HandleMovement();
         HandleTargeting();
+    }
+
+    private void HealthSystem_OnDamaged(object sender, System.EventArgs e)
+    {
+        SoundManager.Instance.PlaySound(SoundManager.Sound.EnemyHit);
+        CinemachineShake.Instance.ShakeCamera(5f, .1f);
+    }
+
+    private void HealthSystem_OnDied(object sender, System.EventArgs e)
+    {
+        SoundManager.Instance.PlaySound(SoundManager.Sound.EnemyDie);
+        CinemachineShake.Instance.ShakeCamera(7f, .15f);
+        Instantiate(Resources.Load<Transform>("EnemyDieParticles"), transform.position, Quaternion.identity);
+        Destroy(gameObject);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -63,7 +66,7 @@ public class Enemy : MonoBehaviour
             // Collided with a building!
             HealthSystem healthSystem = building.GetComponent<HealthSystem>();
             healthSystem.Damage(10);
-            Destroy(gameObject);
+            _healthSystem.Damage(999);
         }
     }
 
@@ -73,7 +76,7 @@ public class Enemy : MonoBehaviour
         {
             Vector3 moveDir = (_targetTransform.position - transform.position).normalized;
 
-            float moveSpeed = 6f;
+            float moveSpeed = 3f;
             _rb.velocity = moveDir * moveSpeed;
         }
         else

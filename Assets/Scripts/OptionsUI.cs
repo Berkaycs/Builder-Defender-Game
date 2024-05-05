@@ -56,12 +56,19 @@ public class OptionsUI : MonoBehaviour
             Time.timeScale = 1f;
             GameSceneManager.Load(GameSceneManager.Scene.MainMenuScene);
         });
+
+        transform.Find("ToggleEdgeScrolling").GetComponent<Toggle>().onValueChanged.AddListener((bool set) =>
+        {
+            CameraHandler.Instance.SetEdgeScrolling(set);
+        });
     }
 
     private void Start()
     {
         gameObject.SetActive(false);
         UpdateText();
+
+        transform.Find("ToggleEdgeScrolling").GetComponent<Toggle>().SetIsOnWithoutNotify(CameraHandler.Instance.GetEdgeScrolling());  
     }
 
     private void UpdateText()
