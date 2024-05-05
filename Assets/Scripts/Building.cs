@@ -15,6 +15,7 @@ public class Building : MonoBehaviour
         _buildingRepairBtn = transform.Find("BuildingRepairBtn");
 
         HideBuildingDemolishBtn();
+        HideBuildingRepairBtn();
     }
 
     private void Start()
@@ -43,14 +44,16 @@ public class Building : MonoBehaviour
         ShowBuildingRepairBtn();
         SoundManager.Instance.PlaySound(SoundManager.Sound.BuildingDamaged);
         CinemachineShake.Instance.ShakeCamera(7f, .15f);
+        ChromaticAberrationEffect.Instance.SetWeight(1f);
     }
 
     private void HealthSystem_OnDied(object sender, System.EventArgs e)
     {
-        Instantiate(Resources.Load<Transform>("BuildingDestroyedParticles"), transform.position, Quaternion.identity);
+        Instantiate(GameAssets.Instance.BuildingDestroyedParticles, transform.position, Quaternion.identity);
         Destroy(gameObject);
         SoundManager.Instance.PlaySound(SoundManager.Sound.BuildingDestroyed);
         CinemachineShake.Instance.ShakeCamera(10f, .2f);
+        ChromaticAberrationEffect.Instance.SetWeight(1f);
     }
 
     private void OnMouseEnter()

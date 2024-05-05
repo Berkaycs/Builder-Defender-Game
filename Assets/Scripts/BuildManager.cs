@@ -99,6 +99,18 @@ public class BuildManager : MonoBehaviour
             return false;
         }
 
+        if (buildingType.HasResourceGeneratorData)
+        {
+            ResourceGeneratorData resourceGeneratorData = buildingType.ResourceGeneratorData;
+            int nearbyResourceAmount = ResourceGenerator.GetNearbyResourceAmount(resourceGeneratorData, position);
+
+            if (nearbyResourceAmount == 0)
+            {
+                errorMessage = "There are no nearby Resource Nodes!";
+                return false;
+            }
+        }
+
         collider2DArray = Physics2D.OverlapCircleAll(position, buildingType.MinConstructionRadius);
 
         // just can build one of each building type in the same area

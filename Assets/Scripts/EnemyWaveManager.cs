@@ -37,7 +37,7 @@ public class EnemyWaveManager : MonoBehaviour
         _state = State.WaitingToSpawnNextWave;
         _spawnPosition = _spawnPositionTransformList[UnityEngine.Random.Range(0, _spawnPositionTransformList.Count)].position;
         _nextWaveSpawnPositionTransform.position = _spawnPosition;
-        _nextEnemySpawnTimer = 3f;
+        _nextEnemySpawnTimer = 5f;
     }
 
     private void Update()
