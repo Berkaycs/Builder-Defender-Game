@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.Tilemaps;
 using UnityEngine;
 
 public class BuildingConstruction : MonoBehaviour
@@ -10,7 +7,7 @@ public class BuildingConstruction : MonoBehaviour
         Transform constructionTransform = Instantiate(GameAssets.Instance.BuildingConstruction, position, Quaternion.identity);
 
         BuildingConstruction buildingConstruction = constructionTransform.GetComponent<BuildingConstruction>();
-        buildingConstruction.SetBuildingType(3f, buildingType);
+        buildingConstruction.SetBuildingType(buildingType.ConstructionTimerMax, buildingType);
 
         return buildingConstruction;
     }
@@ -39,6 +36,10 @@ public class BuildingConstruction : MonoBehaviour
         _constructionTimer -= Time.deltaTime;
 
         _constructionMaterial.SetFloat("_Progress", GetConstructionTimerNormalized());
+        float progress = _constructionMaterial.GetFloat("_Progress");
+        Debug.Log("Progress: " + progress);
+        Debug.Log("Construction timer: " + _constructionTimer);
+        Debug.Log("Construction timer max: " + _constructionTimerMax);
 
         if (_constructionTimer < 0f)
         {

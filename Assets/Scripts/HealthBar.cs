@@ -59,7 +59,7 @@ public class HealthBar : MonoBehaviour
         }
 
         int healthAmountPerSeparator = 10;
-        float barSize = 4f;
+        float barSize = 2f;
         float barOneHealthAmountSize = barSize / _healthSystem.GetHealthAmountMax();
         int healthSeparatorCount = Mathf.FloorToInt(_healthSystem.GetHealthAmountMax() / healthAmountPerSeparator);
 
